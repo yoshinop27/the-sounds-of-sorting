@@ -23,6 +23,9 @@ public class SortsTests {
         return true;
     }
 
+    /**
+     * @return new integer array for testing
+     */
     public static Integer[] makeTestArray() {
         return new Integer[] {
             3, 7, 9, 1, 2,
@@ -32,8 +35,66 @@ public class SortsTests {
         };
     }
 
+    /**
+     * @return sorted array for testing
+     */
+    public static Integer[] makeSortedArray() {
+        return new Integer[] {
+            1,2,3,4,5,6,7,8
+        };
+    }
+
+    /**
+     * @return empty array for testing
+     */
+    public static Integer[] makeEmptyArray() {
+        return new Integer[] {};
+    }
+
+    /**
+     * @return array with duplicates for testing
+     */
+    public static Integer[] makeDupArray() {
+        return new Integer[] {
+            3, 7, 9, 1, 1, 2,
+            18, 16, 15, 19, 8,
+            14, 12, 5, 5, 13, 4,
+            6, 0, 17, 17, 11, 10
+        };
+    }
+
+    /**
+     * @return array in descending order for testing
+     */
+    public static Integer[] makeRevArray() {
+        return new Integer[] {
+            10,9,8,7,6,5,4,3,2,1
+        };
+    }
+
+    /**
+     * General test suite for our sorts
+     * @param func the sorting algorithim we are testing
+     */
     public void testSort(Consumer<Integer[]> func) {
+        // basic test
         Integer[] arr = makeTestArray();
+        func.accept(arr);
+        assertTrue(sorted(arr));
+        // pre-sorted test
+        arr = makeSortedArray();
+        func.accept(arr);
+        assertTrue(sorted(arr));
+        // empty array
+        arr = makeEmptyArray();
+        func.accept(arr);
+        assertTrue(sorted(arr));
+        // duplicates 
+        arr = makeDupArray();
+        func.accept(arr);
+        assertTrue(sorted(arr));
+        // reverse
+        arr = makeRevArray();
         func.accept(arr);
         assertTrue(sorted(arr));
     }
@@ -61,5 +122,10 @@ public class SortsTests {
     @Test
     public void testQuickSort() {
         testSort(Sorts::quickSort);
+    }
+
+    @Test
+    public void testHeapSort() {
+        testSort(Sorts::heapSort);
     }
 }

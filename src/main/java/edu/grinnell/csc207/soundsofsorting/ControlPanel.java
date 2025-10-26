@@ -48,9 +48,9 @@ public class ControlPanel extends JPanel {
             case "Bubble":
                 return Sorts.bubbleSort(arr);
             case "Merge":
-                return Sorts.mergeSort(arr);
-            case("Quick"):
-                return Sorts.quickSort(arr);
+                //return Sorts.mergeSort(arr);
+            case "Quick":
+                //return Sorts.quickSort(arr);
             default:
                 throw new IllegalArgumentException("generateEvents");
         }
