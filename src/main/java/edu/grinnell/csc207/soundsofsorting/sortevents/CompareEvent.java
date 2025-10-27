@@ -26,6 +26,7 @@ public class CompareEvent<T> implements SortEvent<T>{
      * does nothing
      * @param arr takes an array
      */
+    @Override
     public void apply(T[] arr){
         return;
     }
@@ -33,6 +34,7 @@ public class CompareEvent<T> implements SortEvent<T>{
     /**
      * @return a list of compared indices
      */
+    @Override
     public List<Integer> getAffectedIndices(){
         List<Integer> l = new ArrayList<>();
         l.add(i);
@@ -43,6 +45,7 @@ public class CompareEvent<T> implements SortEvent<T>{
     /**
      * @return false becuase comparisons are not emphasized
      */
+    @Override
     public boolean isEmphasized(){
         return false;
     }

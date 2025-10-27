@@ -1,11 +1,17 @@
 package edu.grinnell.csc207.soundsofsorting;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
+import edu.grinnell.csc207.soundsofsorting.sortevents.SortEvent;
 import edu.grinnell.csc207.soundsofsorting.sorts.Sorts;
 
 public class SortsTests {
@@ -76,27 +82,46 @@ public class SortsTests {
      * General test suite for our sorts
      * @param func the sorting algorithim we are testing
      */
-    public void testSort(Consumer<Integer[]> func) {
+    public void testSort(Function<Integer[], List<SortEvent<Integer>>> func) {
         // basic test
-        Integer[] arr = makeTestArray();
-        func.accept(arr);
+        Integer [] arr = makeTestArray();
+        Integer [] copy = Arrays.copyOf(arr, arr.length);
+
+        List<SortEvent<Integer>> l = func.apply(arr);
         assertTrue(sorted(arr));
+        Sorts.eventSort(copy, l);
+        assertTrue(sorted(copy));
+        assertArrayEquals(arr, copy);
+
         // pre-sorted test
         arr = makeSortedArray();
-        func.accept(arr);
+        copy = Arrays.copyOf(arr, arr.length);
+        
+        l = func.apply(arr);
         assertTrue(sorted(arr));
+        Sorts.eventSort(copy, l);
+        assertTrue(sorted(copy));
+        assertArrayEquals(arr, copy);
+
         // empty array
         arr = makeEmptyArray();
-        func.accept(arr);
+        copy = Arrays.copyOf(arr, arr.length);
+
+        l = func.apply(arr);
         assertTrue(sorted(arr));
+        Sorts.eventSort(copy, l);
+        assertTrue(sorted(copy));
+        assertArrayEquals(arr, copy);
+
         // duplicates 
         arr = makeDupArray();
-        func.accept(arr);
+        func.apply(arr);
         assertTrue(sorted(arr));
+        
         // reverse
         arr = makeRevArray();
-        func.accept(arr);
-        assertTrue(sorted(arr));
+        func.apply(arr);
+        assertTrue(sorted(arr));       
     }
 
     @Test

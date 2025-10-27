@@ -25,6 +25,7 @@ public class SwapEvent<T> implements SortEvent<T>{
      * swaps elements i,j
      * @param arr array to perform swap operation on
      */
+    @Override
     public void apply(T[] arr){
         T temp = arr[i];
         arr[i] = arr[j];
@@ -34,6 +35,7 @@ public class SwapEvent<T> implements SortEvent<T>{
     /**
      * @return a list of affected indices
      */
+    @Override
     public List<Integer> getAffectedIndices(){
         return Arrays.asList(i, j);
     }
@@ -41,6 +43,7 @@ public class SwapEvent<T> implements SortEvent<T>{
     /**
      * @return true for swaps
      */
+    @Override
     public boolean isEmphasized(){
         return true;
     }

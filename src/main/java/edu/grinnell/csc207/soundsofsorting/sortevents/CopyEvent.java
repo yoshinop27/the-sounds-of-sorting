@@ -21,8 +21,9 @@ public class CopyEvent<T> implements SortEvent<T>{
     }
 
     /**
-     * @return affected indies as list
+     * @return affected indices as list
      */
+    @Override
     public List<Integer> getAffectedIndices(){
         return Arrays.asList(dest);
     }
@@ -31,6 +32,7 @@ public class CopyEvent<T> implements SortEvent<T>{
      * Insert value into destination
      * @param takes an array
      */
+    @Override
     public void apply (T[] arr){
         arr[dest] = value;
     }
@@ -38,6 +40,7 @@ public class CopyEvent<T> implements SortEvent<T>{
     /**
      * @return true for copyEvent
      */
+    @Override
     public boolean isEmphasized(){
         return true;
     }
