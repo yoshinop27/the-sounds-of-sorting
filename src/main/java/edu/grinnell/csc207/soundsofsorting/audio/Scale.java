@@ -1,4 +1,4 @@
-package edu.grinnell.csc207.soundsofsorting;
+package edu.grinnell.csc207.soundsofsorting.audio;
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;

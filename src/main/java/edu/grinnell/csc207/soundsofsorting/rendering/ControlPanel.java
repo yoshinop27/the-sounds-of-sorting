@@ -1,7 +1,8 @@
-package edu.grinnell.csc207.soundsofsorting;
+package edu.grinnell.csc207.soundsofsorting.rendering;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -10,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import edu.grinnell.csc207.soundsofsorting.audio.NoteIndices;
+import edu.grinnell.csc207.soundsofsorting.audio.Scale;
 import edu.grinnell.csc207.soundsofsorting.sortevents.SortEvent;
 import edu.grinnell.csc207.soundsofsorting.sorts.Sorts;
 
@@ -48,9 +51,9 @@ public class ControlPanel extends JPanel {
             case "Bubble":
                 return Sorts.bubbleSort(arr);
             case "Merge":
-                //return Sorts.mergeSort(arr);
+                return Sorts.mergeSort(arr);
             case "Quick":
-                //return Sorts.quickSort(arr);
+                return Sorts.quickSort(arr);
             default:
                 throw new IllegalArgumentException("generateEvents");
         }
@@ -138,8 +141,10 @@ public class ControlPanel extends JPanel {
                 // TODO: fill me in!
                 // 1. Create the sorting events list
                 // 2. Add in the compare events to the end of the list
-                List<SortEvent<Integer>> events = new java.util.LinkedList<>();
-                
+               Integer[] workingCopy = Arrays.copyOf(notes.getNotes(), notes.getNotes().length);
+                List<SortEvent<Integer>> events = generateEvents(
+                    (String) sorts.getSelectedItem(), workingCopy);
+
                 // NOTE: The Timer class repetitively invokes a method at a
                 //       fixed interval.  Here we are specifying that method
                 //       by creating an _anonymous subclass_ of the TimeTask
@@ -155,8 +160,13 @@ public class ControlPanel extends JPanel {
                             SortEvent<Integer> e = events.get(index++);
                             // TODO: fill me in!
                             // 1. Apply the next sort event.
+                            e.apply(notes.getNotes());
                             // 3. Play the corresponding notes denoted by the
                             //    affected indices logged in the event.
+                            for (int i : e.getAffectedIndices()){
+                                scale.playNote(notes.getNotes()[i] , e.isEmphasized());
+                                notes.highlightNote(i);
+                            }
                             // 4. Highlight those affected indices.
                             panel.repaint();
                         } else {
