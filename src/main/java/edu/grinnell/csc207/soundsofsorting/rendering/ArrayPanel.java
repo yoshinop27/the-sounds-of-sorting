@@ -33,15 +33,18 @@ public class ArrayPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        if (this.notes == null) return;
-        
         Integer[] notes = this.notes.getNotes();
-        if (notes == null || notes.length == 0) return;
 
         // find max for scaling
-        List<Integer> notesList = Arrays.asList(notes);
-        Integer maximum = Collections.max(notesList);
-        
+        // List<Integer> notesList = Arrays.asList(notes);
+        // Integer maximum = Collections.max(notesList);
+        int maximum = -1;
+        for (int i : notes){
+            if (i>maximum){
+                maximum = i;
+            }
+        }
+
         // paint each note
         for (int i=0; i<notes.length; i++) {
             double width = (double) getWidth() / notes.length;

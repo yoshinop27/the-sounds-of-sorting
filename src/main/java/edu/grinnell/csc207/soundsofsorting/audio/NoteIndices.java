@@ -18,11 +18,11 @@ public class NoteIndices {
      */
     public NoteIndices(int n) {
         this.indices = new Integer[n];
-        for (int i = 0; i<n; i++){
+        for (int i = 0; i < n; i++) {
             this.indices[i] = i;
         }
         this.highlighted = new Boolean[n];
-        for (int i = 0; i<n; i++){
+        for (int i = 0; i < n; i++) {
             this.highlighted[i] = false;
         }
     }
@@ -34,10 +34,18 @@ public class NoteIndices {
      * @param n the size of the scale object that these indices map into
      */
     public void initializeAndShuffle(int n) {
-       // this.indices = new Integer[n];
-       List<Integer> list = Arrays.asList(indices);
-       Collections.shuffle(list);
-       list.toArray(indices);
+        this.indices = new Integer[n];
+        for (int i = 0; i < n; i++) {
+            this.indices[i] = i;
+        }
+        List<Integer> list = Arrays.asList(indices);
+        Collections.shuffle(list);
+        list.toArray(indices);
+        // resize highlighted array to match new size
+        this.highlighted = new Boolean[n];
+        for (int i = 0; i < n; i++) {
+            this.highlighted[i] = false;
+        }
     }
     
     /** @return the indices of this NoteIndices object */
@@ -63,7 +71,7 @@ public class NoteIndices {
     
     /** Clears all highlighted indices from this collection */
     public void clearAllHighlighted() {
-        for (int i=0; i<highlighted.length; i++){
+        for (int i = 0; i < highlighted.length; i++) {
             highlighted[i] = false;
         }
     }

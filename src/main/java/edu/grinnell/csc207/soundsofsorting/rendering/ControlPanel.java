@@ -141,7 +141,7 @@ public class ControlPanel extends JPanel {
                 // TODO: fill me in!
                 // 1. Create the sorting events list
                 // 2. Add in the compare events to the end of the list
-               Integer[] workingCopy = Arrays.copyOf(notes.getNotes(), notes.getNotes().length);
+                Integer[] workingCopy = Arrays.copyOf(notes.getNotes(), notes.getNotes().length);
                 List<SortEvent<Integer>> events = generateEvents(
                     (String) sorts.getSelectedItem(), workingCopy);
 
@@ -164,8 +164,10 @@ public class ControlPanel extends JPanel {
                             // 3. Play the corresponding notes denoted by the
                             //    affected indices logged in the event.
                             for (int i : e.getAffectedIndices()){
-                                scale.playNote(notes.getNotes()[i] , e.isEmphasized());
-                                notes.highlightNote(i);
+                                if (i >= 0 && i < notes.getNotes().length) {
+                                    scale.playNote(notes.getNotes()[i] , e.isEmphasized());
+                                    notes.highlightNote(i);
+                                }
                             }
                             // 4. Highlight those affected indices.
                             panel.repaint();
